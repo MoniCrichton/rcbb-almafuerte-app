@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lista de Eventos</title>
+  <link rel="stylesheet" href="../estilos/base-formulario.css" />
+</head>
+<body>
+  <div class="formulario">
+    <h2>📅 Lista de eventos</h2>
+    <ul id="listaEventos" style="list-style: none; padding: 0;"></ul>
+  </div>
+
+  <script type="module">
+    import { db } from "../modules/shared/firebase.js";
+    import {
+      collection,
+      getDocs,
+      query,
+      orderBy
+    } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+    const lista = document.getElementById('listaEventos');
+
+    async function cargarEventos() {
+      const q = query(collection(db, 'eventos'), orderBy('fecha', 'asc'));
+      const querySnapshot = await getDocs(q);
+
+      querySnapshot.forEach((docSnap) => {
+        const evento = docSnap.data();
+        const li = document.createElement("li");
+        li.style.marginBottom = "1rem";
+        const fecha = evento.fecha || "(sin fecha)";
+        const titulo = evento.titulo || "(sin título)";
+        const tipo = evento.tipo || "";
+
+        li.innerHTML = `
+          <strong>${fecha}</strong> — ${titulo} (${tipo})
+          <a href="agregar-evento.html?id=${docSnap.id}" style="margin-left: 1rem;">✏️ Editar</a>
+        `;
+
+        lista.appendChild(li);
+      });
+    }
+
+    cargarEventos();
+  </script>
+</body>
+</html>
