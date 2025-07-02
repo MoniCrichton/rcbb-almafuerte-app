@@ -43,6 +43,8 @@ El archivo `event_type_styles.json` contiene la relación entre:
 
 Podés editar ese archivo para agregar nuevos tipos o modificar colores y emojis.
 
+
+![alt text](<imagen calendario.png>)
 ---
 
 ## 🚀 Próximos pasos sugeridos
@@ -51,6 +53,9 @@ Podés editar ese archivo para agregar nuevos tipos o modificar colores y emojis
 - [ ] Posibilidad de importar eventos desde Google Sheets automáticamente
 - [ ] Exportar eventos a PDF o imprimir
 
+
+
 ---
+
 
 **Hecho con 💛 por Monica Crichton para RC Bahía Blanca Almafuerte**

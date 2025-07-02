@@ -36,9 +36,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     initialView: "dayGridMonth",
     headerToolbar: {
       left: "prev,next today",
-      center: "title",
-      right: "dayGridMonth"
+      center: "title"
     },
+
     locale: "es",
     events: eventos,
     eventClick: function (info) {
