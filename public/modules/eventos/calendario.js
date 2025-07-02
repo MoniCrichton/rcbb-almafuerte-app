@@ -1,18 +1,9 @@
-import { db } from "../shared/firebase.js";
-import { Calendar } from "https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js";
-import {
-  collection,
-  getDocs,
-  query,
-  orderBy
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
 document.addEventListener("DOMContentLoaded", async function () {
   const calendarEl = document.getElementById("calendario");
   const eventos = [];
 
-  const q = query(collection(db, "eventos"), orderBy("fecha", "asc"));
-  const querySnapshot = await getDocs(q);
+  const q = firebase.firestore().collection("eventos").orderBy("fecha", "asc");
+  const querySnapshot = await q.get();
 
   querySnapshot.forEach((doc) => {
     const e = doc.data();
@@ -30,8 +21,8 @@ document.addEventListener("DOMContentLoaded", async function () {
       }
     });
   });
-//cambio para que tome Calendar en lugar de NewCalendar
-  const calendar = new Calendar(calendarEl, {
+
+  const calendar = new FullCalendar.Calendar(calendarEl, {
     initialView: "dayGridMonth",
     headerToolbar: {
       left: "prev,next today",
