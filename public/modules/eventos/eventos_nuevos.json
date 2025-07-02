@@ -1,0 +1,93 @@
+[
+  {
+    "fecha": "2025-05-07",
+    "titulo": "Reunion en la Casa de la Amistad",
+    "tipo": "reunión",
+    "detalles": "Sede Rotary -  Bahia Blanca",
+    "horaInicio": "21:30",
+    "mostrar": "socios",
+    "enviadoPor": "Moni",
+    "creadoEn": {
+      "seconds": 0,
+      "nanoseconds": 0
+    }
+  },
+  {
+    "fecha": "2025-05-08",
+    "titulo": "Conferencia Distrito",
+    "tipo": "conferencia",
+    "detalles": "Trelew",
+    "horaInicio": "09:00",
+    "mostrar": "socios",
+    "enviadoPor": "Moni",
+    "creadoEn": {
+      "seconds": 0,
+      "nanoseconds": 0
+    }
+  },
+  {
+    "fecha": "2025-05-09",
+    "titulo": "Conferencia Distrito",
+    "tipo": "conferencia",
+    "detalles": "Trelew",
+    "horaInicio": "09:00",
+    "mostrar": "socios",
+    "enviadoPor": "Moni",
+    "creadoEn": {
+      "seconds": 0,
+      "nanoseconds": 0
+    }
+  },
+  {
+    "fecha": "2025-05-16",
+    "titulo": "Preparar salon para la Cena Aniversario",
+    "tipo": "servicio",
+    "detalles": "Sede Rotary -  Bahia Blanca",
+    "horaInicio": "17:00",
+    "mostrar": "socios",
+    "enviadoPor": "Moni",
+    "creadoEn": {
+      "seconds": 0,
+      "nanoseconds": 0
+    }
+  },
+  {
+    "fecha": "2025-05-17",
+    "titulo": "Cena Aniversario $ 30,000,-",
+    "tipo": "cena",
+    "detalles": "Sede Rotary -  Bahia Blanca",
+    "horaInicio": "21:00",
+    "mostrar": "socios",
+    "enviadoPor": "Moni",
+    "creadoEn": {
+      "seconds": 0,
+      "nanoseconds": 0
+    }
+  },
+  {
+    "fecha": "2025-05-24",
+    "titulo": "Concierto Gala Patriotica (Ref: Gral Brigada Jorge Luis Diaz) Teatro Don Bosco",
+    "tipo": "evento",
+    "detalles": "Teatro Don Bosco",
+    "horaInicio": "21:45",
+    "mostrar": "socios",
+    "enviadoPor": "Moni",
+    "creadoEn": {
+      "seconds": 0,
+      "nanoseconds": 0
+    }
+  },
+  {
+    "fecha": "2025-05-25",
+    "titulo": "Ceremonia y Desayuno - 215 aniversario Revolución de Mayo (Ref: Gral Brigada Jorge Luis Diaz) Cuyo 1600 - Plaza de Armas del Batallón de Comunicaciones 181",
+    "tipo": "evento",
+    "detalles": "Cuyo 1600 Plaza de Armas Batallón de Comunicaciones 181",
+    "horaInicio": "09:30",
+    "mostrar": "socios",
+    "enviadoPor": "Moni",
+    "creadoEn": {
+      "seconds": 0,
+      "nanoseconds": 0
+    }
+  }
+]

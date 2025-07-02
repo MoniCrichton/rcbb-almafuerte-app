@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   querySnapshot.forEach((doc) => {
     const e = doc.data();
+    console.log("Evento:", e);  // 👈 agregá esto
     const start = e.horaInicio ? `${e.fecha}T${e.horaInicio}` : e.fecha;
     const end = e.horaFin ? `${e.fecha}T${e.horaFin}` : undefined;
 
