@@ -9,7 +9,6 @@ import {
 
 document.addEventListener("DOMContentLoaded", async function () {
   const calendarEl = document.getElementById("calendario");
-
   const eventos = [];
 
   const q = query(collection(db, "eventos"), orderBy("fecha", "asc"));
@@ -17,7 +16,6 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   querySnapshot.forEach((doc) => {
     const e = doc.data();
-
     const start = e.horaInicio ? `${e.fecha}T${e.horaInicio}` : e.fecha;
     const end = e.horaFin ? `${e.fecha}T${e.horaFin}` : undefined;
 

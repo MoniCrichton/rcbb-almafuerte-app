@@ -51,3 +51,21 @@ etiqueta.style.fontWeight = "bold";
 etiqueta.style.boxShadow = "0 2px 4px rgba(0,0,0,0.15)";
 etiqueta.style.zIndex = "1000";
 document.body.appendChild(etiqueta);
+
+// Indicador visual en pantalla (solo si NO estamos en producción final)
+if (hostname === "localhost" || isVercelPreview) {
+  const etiqueta = document.createElement('div');
+  etiqueta.textContent = hostname === "localhost" ? "🧪 Modo LOCAL" : "🌱 Modo PREVIEW";
+  etiqueta.style.position = "fixed";
+  etiqueta.style.bottom = "10px";  // 👈 Lo movemos abajo
+  etiqueta.style.left = "10px";    // 👈 A la izquierda, lejos de los botones
+  etiqueta.style.padding = "6px 12px";
+  etiqueta.style.backgroundColor = "#f0f0f0";
+  etiqueta.style.color = "#000";
+  etiqueta.style.borderRadius = "8px";
+  etiqueta.style.fontWeight = "bold";
+  etiqueta.style.boxShadow = "0 2px 4px rgba(0,0,0,0.15)";
+  etiqueta.style.zIndex = "1000";
+  document.body.appendChild(etiqueta);
+}
+

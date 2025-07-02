@@ -2,36 +2,18 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="manifest" href="manifest.json" />
-  <meta name="theme-color" content="#007bff" />
-  <title>Calendario RC BB Almafuerte</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calendario de eventos</title>
 
-  <!-- Ruta corregida -->
-  <link rel="stylesheet" href="./estilos/styles.css" />
+  <!-- Estilos de FullCalendar -->
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/main.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="./estilos/calendario.css" />
 </head>
 <body>
-  <header id="month-header">
-    <div id="mes-actual"></div>
-    <button onclick="cambiarMes(-1)">←</button>
-    <button onclick="cambiarMes(1)">→</button>
-    <div id="consigna-mensual"></div>
-  </header>
+  <h1 style="text-align:center;">🗓️ Calendario de eventos</h1>
+  <div id="calendario"></div>
 
-  <div class="calendar" id="calendar"></div>
-
-  <footer>
-    <p>
-      Sitio creado por Monica Crichton (Moni) para RC Bahía Blanca Almafuerte.<br />
-      Inspirado en los valores de Rotary International.<br />
-      © Mónica Crichton – 2025<br />
-      Licencia <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener noreferrer">
-        CC BY-NC-SA 4.0
-      </a> – No comercial, con atribución.
-    </p>
-  </footer>
-
-  <!-- Rutas corregidas -->
+  <!-- Config y Firebase -->
   <script type="module" src="./modules/shared/config.js"></script>
   <script type="module" src="./modules/eventos/calendario.js"></script>
 </body>
