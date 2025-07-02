@@ -6,7 +6,9 @@
   <link rel="manifest" href="manifest.json" />
   <meta name="theme-color" content="#007bff" />
   <title>Calendario RC BB Almafuerte</title>
-  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Ruta corregida -->
+  <link rel="stylesheet" href="./estilos/styles.css" />
 </head>
 <body>
   <header id="month-header">
@@ -24,11 +26,13 @@
       Inspirado en los valores de Rotary International.<br />
       © Mónica Crichton – 2025<br />
       Licencia <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.es" target="_blank" rel="noopener noreferrer">
-      CC BY-NC-SA 4.0
+        CC BY-NC-SA 4.0
       </a> – No comercial, con atribución.
     </p>
   </footer>
-  <script src="/public/js/config.js"></script>
-  <script src="script.js" defer></script>
+
+  <!-- Rutas corregidas -->
+  <script type="module" src="./modules/shared/config.js"></script>
+  <script type="module" src="./modules/eventos/calendario.js"></script>
 </body>
 </html>
