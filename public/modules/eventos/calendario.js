@@ -1,4 +1,6 @@
-import { db } from '..shared/firebase.js';
+// public/modules/eventos/calendario.js
+
+import { db } from "../shared/firebase.js";
 import {
   collection,
   getDocs,
@@ -6,26 +8,49 @@ import {
   orderBy
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-document.addEventListener('DOMContentLoaded', async function () {
-  const calendarEl = document.getElementById('calendario');
+document.addEventListener("DOMContentLoaded", async function () {
+  const calendarEl = document.getElementById("calendario");
 
   const eventos = [];
 
-  const q = query(collection(db, 'eventos'), orderBy('fecha', 'asc'));
+  const q = query(collection(db, "eventos"), orderBy("fecha", "asc"));
   const querySnapshot = await getDocs(q);
 
   querySnapshot.forEach((doc) => {
     const e = doc.data();
+
+    // Unir horaInicio a fecha si está presente
+    const start = e.horaInicio ? `${e.fecha}T${e.horaInicio}` : e.fecha;
+    const end = e.horaFin ? `${e.fecha}T${e.horaFin}` : undefined;
+
     eventos.push({
-      title: `${e.titulo} ${e.emoji || ''}`,
-      start: e.fecha
+      title: `${e.titulo}${e.detalles ? ' - ' + e.detalles : ''}`,
+      start,
+      end,
+      extendedProps: {
+        tipo: e.tipo,
+        mostrar: e.mostrar,
+        enviadoPor: e.enviadoPor || '',
+      }
     });
   });
 
   const calendar = new FullCalendar.Calendar(calendarEl, {
-    initialView: 'dayGridMonth',
-    locale: 'es',
-    events: eventos
+    initialView: "dayGridMonth",
+    headerToolbar: {
+      left: "prev,next today",
+      center: "title",
+      right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth"
+    },
+    locale: "es",
+    events: eventos,
+    eventClick: function (info) {
+      const { title, start, end, extendedProps } = info.event;
+      const detalle = `\n\n📅 ${start.toLocaleString()}${end ? ` a ${end.toLocaleTimeString()}` : ''}`;
+      const mostrar = `👁️ Visible para: ${extendedProps.mostrar}`;
+      const autor = extendedProps.enviadoPor ? `📤 Enviado por: ${extendedProps.enviadoPor}` : '';
+      alert(`${title}${detalle}\n${mostrar}\n${autor}`);
+    },
   });
 
   calendar.render();
