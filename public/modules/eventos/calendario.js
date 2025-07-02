@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", async function () {
       }
     });
   });
-
+//cambio para que tome Calendar en lugar de NewCalendar
   const calendar = new Calendar(calendarEl, {
     initialView: "dayGridMonth",
     headerToolbar: {

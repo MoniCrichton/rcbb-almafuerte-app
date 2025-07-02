@@ -37,21 +37,6 @@ console.log("🔗 Script URL:", window.ENDPOINT_URL);
 console.log("📄 Sheet ID usado:", sheetID);
 console.log("📑 URL Consignas:", window.URL_CONSIGNAS);
 
-// Indicador visual en pantalla
-const etiqueta = document.createElement('div');
-etiqueta.textContent = isVercelPreview ? "🌱 Modo DESARROLLO" : "🚀 Modo PRODUCCIÓN";
-etiqueta.style.position = "fixed";
-etiqueta.style.top = "10px";
-etiqueta.style.right = "10px";
-etiqueta.style.padding = "6px 12px";
-etiqueta.style.backgroundColor = isVercelPreview ? "#e0f7e9" : "#e6f2ff";
-etiqueta.style.color = "#000";
-etiqueta.style.borderRadius = "8px";
-etiqueta.style.fontWeight = "bold";
-etiqueta.style.boxShadow = "0 2px 4px rgba(0,0,0,0.15)";
-etiqueta.style.zIndex = "1000";
-document.body.appendChild(etiqueta);
-
 // Indicador visual en pantalla (solo si NO estamos en producción final)
 if (hostname === "localhost" || isVercelPreview) {
   const etiqueta = document.createElement('div');
