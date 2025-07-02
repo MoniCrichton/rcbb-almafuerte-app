@@ -1,6 +1,5 @@
-// public/modules/eventos/calendario.js
-
 import { db } from "../shared/firebase.js";
+import { Calendar } from "https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js";
 import {
   collection,
   getDocs,
@@ -19,7 +18,6 @@ document.addEventListener("DOMContentLoaded", async function () {
   querySnapshot.forEach((doc) => {
     const e = doc.data();
 
-    // Unir horaInicio a fecha si está presente
     const start = e.horaInicio ? `${e.fecha}T${e.horaInicio}` : e.fecha;
     const end = e.horaFin ? `${e.fecha}T${e.horaFin}` : undefined;
 
@@ -35,7 +33,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     });
   });
 
-  const calendar = new FullCalendar.Calendar(calendarEl, {
+  const calendar = new Calendar(calendarEl, {
     initialView: "dayGridMonth",
     headerToolbar: {
       left: "prev,next today",
