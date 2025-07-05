@@ -1,7 +1,7 @@
 
 import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
 import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-import { app } from "..//shared/firebase.js";
+import { app } from "../shared/firebase.js";
 
 const storage = getStorage(app);
 const db = getFirestore(app);
