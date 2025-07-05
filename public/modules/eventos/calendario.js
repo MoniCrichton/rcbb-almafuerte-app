@@ -30,9 +30,11 @@ document.addEventListener("DOMContentLoaded", async function () {
     const emoji = style?.emoji || "";
     const color = style?.color || "#cccccc";
 
+    const edad = calcularEdad(e.fechaNacimiento, e.fecha);
+    const title = `${emoji} ${e.titulo}${edad ? ` (${edad})` : ""}`;
+
     eventos.push({
-      const edad = calcularEdad(e.fechaNacimiento, e.fecha);
-      const title = `${emoji} ${e.titulo}${edad ? ` (${edad})` : ""}`;
+      
       start,
       end,
       color,
