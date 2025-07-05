@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     const title = `${emoji} ${e.titulo}${edad ? ` (${edad})` : ""}`;
 
     eventos.push({
-      
+      title,
       start,
       end,
       color,
