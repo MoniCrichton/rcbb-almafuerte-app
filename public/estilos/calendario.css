@@ -28,6 +28,22 @@ h1 {
   font-weight: 500;
   line-height: 1.2;
   white-space: normal !important;
+  min-height: 24px;
+}
+
+/* Permitir que eventos largos se vean completos */
+.fc-daygrid-event-harness {
+  display: block;
+}
+
+.fc-event-title {
+  white-space: normal;
+  word-break: break-word;
+}
+
+/* Ocultar hora para eventos tipo punto como cumpleaños */
+.fc-daygrid-dot-event .fc-event-time {
+  display: none;
 }
 
 /* Responsive visual para móviles */
