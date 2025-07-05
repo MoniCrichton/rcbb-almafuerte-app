@@ -37,3 +37,6 @@ window.subirComprobante = async function () {
     console.error(error);
   }
 };
+
+document.getElementById("btnSubir").addEventListener("click", subirComprobante);
+
