@@ -100,13 +100,14 @@ h1 {
 
 /* Limitar altura de la vista de mes */
 .fc-daygrid-day-frame {
-  max-height: 120px;  /* Controla la altura máxima de cada celda */
+  max-height: 80px;  /* Controla la altura máxima de cada celda */
   overflow: hidden;
 }
 
 /* Ocultar parte de eventos si se desbordan, y permitir “+ más” */
 .fc-daygrid-event {
   overflow: hidden;
+  overflow-y: auto;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
