@@ -34,16 +34,17 @@ document.addEventListener("DOMContentLoaded", async function () {
     const title = `${emoji} ${e.titulo}${edad ? ` (${edad})` : ""}`;
 
     eventos.push({
-      title,
-      start,
-      end,
-      color,
-      extendedProps: {
-        tipo: e.tipo,
-        mostrar: e.mostrar,
-        enviadoPor: e.enviadoPor || '',
-      }
-    });
+  title,
+  start,
+  end,
+  color,
+  extendedProps: {
+    tipo: e.tipo,
+    mostrar: e.mostrar,
+    enviadoPor: e.enviadoPor || '',
+  }
+});
+
   });
 
   const calendar = new FullCalendar.Calendar(calendarEl, {
