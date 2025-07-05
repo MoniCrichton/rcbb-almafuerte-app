@@ -83,3 +83,30 @@ h1 {
     margin-bottom: 3px;
   }
 }
+
+/* Forzar altura uniforme de filas del calendario */
+.fc .fc-daygrid-body-natural {
+  height: auto !important;
+}
+
+.fc .fc-daygrid-body {
+  max-height: 100%;
+}
+
+.fc .fc-scrollgrid-sync-table {
+  table-layout: fixed;
+  height: calc(100vh - 150px); /* Ajusta según header/padding */
+}
+
+/* Limitar altura de la vista de mes */
+.fc-daygrid-day-frame {
+  max-height: 120px;  /* Controla la altura máxima de cada celda */
+  overflow: hidden;
+}
+
+/* Ocultar parte de eventos si se desbordan, y permitir “+ más” */
+.fc-daygrid-event {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
