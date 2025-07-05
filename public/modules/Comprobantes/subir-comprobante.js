@@ -40,3 +40,4 @@ window.subirComprobante = async function () {
 
 document.getElementById("btnSubir").addEventListener("click", subirComprobante);
 
+// Archivo verificado por Moni -->
