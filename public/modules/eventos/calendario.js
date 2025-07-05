@@ -10,6 +10,16 @@ document.addEventListener("DOMContentLoaded", async function () {
   const q = db.collection("eventos").orderBy("fecha", "asc");
   const querySnapshot = await q.get();
 
+  function calcularEdad(nacimiento, evento) {
+  if (!nacimiento) return "";
+  const d1 = new Date(nacimiento);
+  const d2 = new Date(evento);
+  let edad = d2.getFullYear() - d1.getFullYear();
+  const m = d2.getMonth() - d1.getMonth();
+  if (m < 0 || (m === 0 && d2.getDate() < d1.getDate())) edad--;
+  return edad;
+}
+
   querySnapshot.forEach((doc) => {
     const e = doc.data();
     console.log("Evento:", e);  // 👈 agregá esto
@@ -21,7 +31,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     const color = style?.color || "#cccccc";
 
     eventos.push({
-      title: `${emoji} ${e.titulo}`,
+      const edad = calcularEdad(e.fechaNacimiento, e.fecha);
+      const title = `${emoji} ${e.titulo}${edad ? ` (${edad})` : ""}`;
       start,
       end,
       color,
