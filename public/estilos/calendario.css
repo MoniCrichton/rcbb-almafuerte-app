@@ -100,7 +100,7 @@ h1 {
 
 /* Limitar altura de la vista de mes */
 .fc-daygrid-day-frame {
-  max-height: 60px;  /* Controla la altura máxima de cada celda */
+  max-height: 80px;  /* Controla la altura máxima de cada celda */
   overflow: hidden;
 }
 
@@ -110,4 +110,20 @@ h1 {
   overflow-y: auto;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+/* Evitar que las celdas se estiren y que el calendario use altura excesiva */
+.fc-daygrid-day {
+  height: 90px; /* Control real de la celda (no solo su contenido) */
+  max-height: 90px;
+  vertical-align: top;
+}
+
+/* Limitar la altura total del calendario mensual */
+.fc .fc-view-harness,
+.fc .fc-daygrid-body,
+.fc .fc-scrollgrid-section-body {
+  max-height: 75vh;
+  height: 75vh;
+  overflow: hidden;
 }
