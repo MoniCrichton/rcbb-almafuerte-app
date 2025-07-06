@@ -2,101 +2,141 @@
   {
     "tipo": "cumpleaños",
     "emoji": "🎂",
-    "color": "#00FA9A"
+    "color": "#00FA9A",
+    "textColor": "#000000",
+    "borderColor": "#00FA9A"
   },
   {
     "tipo": "aniversario",
     "emoji": "🎂",
-    "color": "#00FA9A"
+    "color": "#00FA9A",
+    "textColor": "#000000",
+    "borderColor": "#00FA9A"
   },
   {
     "tipo": "feriado",
     "emoji": "🇦🇷",
-    "color": "#87CEEB"
+    "color": "#87CEEB",
+    "textColor": "#000000",
+    "borderColor": "#87CEEB"
   },
   {
     "tipo": "efeméride",
     "emoji": "📅",
-    "color": "#E6E6FA"
+    "color": "#E6E6FA",
+    "textColor": "#000000",
+    "borderColor": "#E6E6FA"
   },
   {
     "tipo": "reunión",
     "emoji": "👥",
-    "color": "#C2EABD"
+    "color": "#C2EABD",
+    "textColor": "#000000",
+    "borderColor": "#C2EABD"
   },
   {
     "tipo": "cena",
     "emoji": "🍽️",
-    "color": "#FAD0E6"
+    "color": "#FAD0E6",
+    "textColor": "#000000",
+    "borderColor": "#FAD0E6"
   },
   {
     "tipo": "actividad membresia",
     "emoji": "🧩",
-    "color": "#FFA500"
+    "color": "#FFA500",
+    "textColor": "#000000",
+    "borderColor": "#FFA500"
   },
   {
     "tipo": "evento",
     "emoji": "📌",
-    "color": "#CCCCCC"
+    "color": "#CCCCCC",
+    "textColor": "#000000",
+    "borderColor": "#CCCCCC"
   },
   {
     "tipo": "conferencia",
     "emoji": "🎤",
-    "color": "#D2D0F0"
+    "color": "#D2D0F0",
+    "textColor": "#000000",
+    "borderColor": "#D2D0F0"
   },
   {
     "tipo": "deportes y valores",
     "emoji": "🏆",
-    "color": "#A2DED0"
+    "color": "#A2DED0",
+    "textColor": "#000000",
+    "borderColor": "#A2DED0"
   },
   {
     "tipo": "ryla",
     "emoji": "🚀",
-    "color": "#A6BDFE"
+    "color": "#A6BDFE",
+    "textColor": "#000000",
+    "borderColor": "#A6BDFE"
   },
   {
     "tipo": "capacitaciones",
     "emoji": "📚",
-    "color": "#40E0D0"
+    "color": "#40E0D0",
+    "textColor": "#000000",
+    "borderColor": "#40E0D0"
   },
   {
     "tipo": "interact",
     "emoji": "👧👦",
-    "color": "#00CED1"
+    "color": "#00CED1",
+    "textColor": "#000000",
+    "borderColor": "#00CED1"
   },
   {
     "tipo": "rotaract",
     "emoji": "🤝",
-    "color": "#FF8C00"
+    "color": "#FF8C00",
+    "textColor": "#000000",
+    "borderColor": "#FF8C00"
   },
   {
     "tipo": "instituto",
     "emoji": "🕋",
-    "color": "#6A9ACD"
+    "color": "#6A9ACD",
+    "textColor": "#000000",
+    "borderColor": "#6A9ACD"
   },
   {
     "tipo": "rotary Internacional",
     "emoji": "🔵⚙️",
-    "color": "#F7A81B"
+    "color": "#F7A81B",
+    "textColor": "#000000",
+    "borderColor": "#F7A81B"
   },
   {
     "tipo": "servicio",
     "emoji": "🫱🤝🫲",
-    "color": "#FFE4B2"
+    "color": "#FFE4B2",
+    "textColor": "#000000",
+    "borderColor": "#FFE4B2"
   },
   {
     "tipo": "intercambio",
     "emoji": "🌍✈️",
-    "color": "#D4E3FC"
+    "color": "#D4E3FC",
+    "textColor": "#000000",
+    "borderColor": "#D4E3FC"
   },
   {
     "tipo": "Empoderamiento de NNA",
     "emoji": "👶",
-    "color": "#FAFAFA"
+    "color": "#FAFAFA",
+    "textColor": "#000000",
+    "borderColor": "#FAFAFA"
   },
   {
     "tipo": "distrito",
     "emoji": "🗺️",
-    "color": "#B0C4DE"
+    "color": "#B0C4DE",
+    "textColor": "#000000",
+    "borderColor": "#B0C4DE"
   }
 ]
