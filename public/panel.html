@@ -1,52 +1,61 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Panel de gestión</title>
-  <link rel="stylesheet" href="./estilos/panel.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel de gestión</title>
+    <link rel="stylesheet" href="./estilos/panel.css" />
 </head>
 <body>
-  <h1>🎛️ Panel de gestión</h1>
-
-  <section>
-    <h2>📅 Agregar nuevo evento</h2>
-    <form id="form-evento">
-      <label>Título: <input type="text" name="titulo" required /></label><br />
-      <label>Tipo:
-        <select name="tipo" required>
-          <option value="">Seleccione un tipo</option>
-          <option value="general">General</option>
-          <option value="cumpleaños">Cumpleaños 🎂</option>
-          <option value="feriado">Feriado 🎉</option>
-          <option value="efemerides">Efemérides 📜</option>
-          <option value="reunion">Reunión 🤝</option>
-                  </select>
-      </label><br />
-      <label>Fecha: <input type="date" name="fecha" required /></label><br />
-      <label>Hora inicio: <input type="time" name="horaInicio" /></label><br />
-      <label>Hora fin: <input type="time" name="horaFin" /></label><br />
-      <label>Repetir: <select name="repetir">
-        <option value="">No</option>
-        <option value="anual">Anual</option>
-        <option value="mensual">Mensual</option>
-        <option value="semanal">Semanal</option>
-      </select></label><br />
-      <label>Mostrar: <input type="text" name="mostrar" value="todos" /></label><br />
-      <button type="submit">Agregar evento</button>
-    </form>
-    <p id="estado"></p>
-  </section>
+    <h1>🎛️ Panel de gestión</h1>
 
     <section>
-        <h2>📝 Eventos existentes</h2>
-        <ul id="lista-eventos">
-            </ul>
-        <p id="estado-lista"></p>
+        <h2>📅 Agregar nuevo evento</h2>
+        <form id="form-evento">
+            <label>Título: <input type="text" name="titulo" required /></label><br />
+            <label>Tipo:
+                <select name="tipo" id="tipo-evento-select" required>
+                    <option value="">Seleccione un tipo</option>
+                    <option value="cumpleaños">Cumpleaños 🎂</option>
+                    <option value="aniversario">Aniversario 🎂</option>
+                    <option value="feriado">Feriado 🇦🇷</option>
+                    <option value="efeméride">Efeméride 📅</option>
+                    <option value="reunión">Reunión 👥</option>
+                    <option value="cena">Cena 🍽️</option>
+                    <option value="actividad membresia">Actividad Membresía 🧩</option>
+                    <option value="evento">Evento 📌</option>
+                    <option value="conferencia">Conferencia 🎤</option>
+                    <option value="deportes y valores">Deportes y Valores 🏆</option>
+                    <option value="ryla">RYLA 🚀</option>
+                    <option value="capacitaciones">Capacitaciones 📚</option>
+                    <option value="interact">Interact 👧👦</option>
+                    <option value="rotaract">Rotaract 🤝</option>
+                    <option value="instituto">Instituto 🕋</option>
+                    <option value="rotary Internacional">Rotary Internacional 🔵⚙️</option>
+                    <option value="servicio">Servicio 🫱🤝🫲</option>
+                    <option value="intercambio">Intercambio 🌍✈️</option>
+                    <option value="Empoderamiento de NNA">Empoderamiento de NNA 👶</option>
+                    <option value="distrito">Distrito 🗺️</option>
+                </select>
+            </label><br />
+            <label>Fecha: <input type="date" name="fecha" required /></label><br />
+            <label>Hora inicio: <input type="time" name="horaInicio" /></label><br />
+            <label>Hora fin: <input type="time" name="horaFin" /></label><br />
+            <label>Repetir: <select name="repetir">
+                <option value="">No</option>
+                <option value="anual">Anual</option>
+                <option value="mensual">Mensual</option>
+                <option value="semanal">Semanal</option>
+            </select></label><br />
+            <label>Mostrar: <input type="text" name="mostrar" value="todos" /></label><br />
+            <label>Fecha Nacimiento (solo Cumpleaños/Aniversario): <input type="date" name="fechaNacimiento" /></label><br />
+            <button type="submit">Agregar evento</button>
+        </form>
+        <p id="estado-evento"></p>
     </section>
 
-    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
-  <script type="module" src="./js/panel-script.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+    <script type="module" src="./js/panel-script.js"></script>
 </body>
 </html>

@@ -1,31 +1,43 @@
 // public/eventos/calendario.js
-// Importa 'db' desde tu archivo de configuración de Firebase
-import { db } from '../shared/config.js';
+import { db } from '../shared/config.js'; // Importa 'db' desde tu archivo de configuración de Firebase
 
 document.addEventListener("DOMContentLoaded", async function () {
     const calendarEl = document.getElementById("calendario");
     const eventos = [];
+    let eventTypeStyles = {}; // Objeto para almacenar los estilos por tipo (del JSON)
 
-    // 🟡 Cargar los estilos por tipo
-    // Asegúrate de que esta ruta sea correcta con respecto a calendario.js
-    const response = await fetch("../data/event_type_styles.json");
-    let typeStyles = await response.json();
+    // 🟡 Cargar los estilos por tipo DESDE EL JSON local (como lo tenías)
+    try {
+        // Asegúrate de que esta ruta sea correcta con respecto a calendario.js
+        const response = await fetch("../data/event_type_styles.json");
+        const jsonStyles = await response.json();
 
-    // Transformar typeStyles si es un array a un objeto para fácil acceso
-    // Si tu JSON ya es un objeto { "tipo1": {...}, "tipo2": {...} }, puedes omitir esta parte
-    if (Array.isArray(typeStyles)) {
-        const tempStyles = {};
-        typeStyles.forEach(style => {
+        // Transformar el array del JSON a un objeto para fácil acceso
+        jsonStyles.forEach(style => {
             if (style.tipo) {
-                tempStyles[style.tipo.toLowerCase()] = style;
+                eventTypeStyles[style.tipo.toLowerCase()] = style;
             }
         });
-        typeStyles = tempStyles;
+
+        // Asegúrate de tener un tipo 'general' por defecto si no existe en el JSON
+        if (!eventTypeStyles['general']) {
+            eventTypeStyles['general'] = {
+                emoji: "🗓️",
+                color: "#CCCCCC",
+                textColor: "#000000",
+                borderColor: "#CCCCCC"
+            };
+        }
+        console.log("Estilos de eventos cargados desde JSON:", eventTypeStyles);
+    } catch (error) {
+        console.error("Error al cargar estilos de tipos de evento desde JSON:", error);
+        // Fallback a estilos por defecto si hay un error
+        eventTypeStyles = {
+            general: { emoji: "🗓️", color: "#CCCCCC", textColor: "#000000", borderColor: "#CCCCCC" }
+        };
     }
 
-
     // 📦 Cargar eventos desde Firebase
-    // Usa la instancia 'db' importada
     const q = db.collection("eventos").orderBy("fecha", "asc");
     const querySnapshot = await q.get();
 
@@ -48,14 +60,17 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         // Obtener estilos basados en el tipo de evento
         const tipoEvento = (e.tipo || 'general').toLowerCase(); // Default 'general'
-        const style = typeStyles[tipoEvento] || typeStyles['general'] || {}; // Fallback a 'general' o vacío
+        const style = eventTypeStyles[tipoEvento] || eventTypeStyles['general'] || {}; // Fallback a 'general' o el default que pusimos
 
         const emoji = style.emoji || "";
-        const color = style.color || "#cccccc"; // Usar el color del JSON
-        const textColor = style.textColor || '#000000'; // Nuevo: color del texto del evento
-        const borderColor = style.borderColor || '#cccccc'; // Nuevo: color del borde
+        const color = style.color || "#CCCCCC"; // Color de fondo del evento
+        // Si tu JSON no tiene textColor/borderColor, se usará el default del JS
+        const textColor = style.textColor || '#000000';
+        const borderColor = style.borderColor || '#CCCCCC';
 
-        const edad = (e.tipo?.toLowerCase() === 'cumpleaños' && e.fechaNacimiento) ? calcularEdad(e.fechaNacimiento, e.fecha) : "";
+        // Asegúrate de que 'e.fechaNacimiento' exista y el tipo sea 'cumpleaños' o 'aniversario' para calcular la edad
+        const esCumpleAniversario = ["cumpleaños", "aniversario"].includes(tipoEvento);
+        const edad = (esCumpleAniversario && e.fechaNacimiento) ? calcularEdad(e.fechaNacimiento, e.fecha) : "";
         const title = `${emoji} ${e.titulo}${edad ? ` (${edad})` : ""}`;
 
         // ⏱️ Preparar fechas para FullCalendar
@@ -64,18 +79,20 @@ document.addEventListener("DOMContentLoaded", async function () {
         const eventDate = e.fecha instanceof firebase.firestore.Timestamp ? e.fecha.toDate().toISOString().split('T')[0] : e.fecha; // Asegurar YYYY-MM-DD
         
         const start = e.horaInicio ? `${eventDate}T${e.horaInicio}` : `${eventDate}T00:00:00`;
-        const end = e.horaFin ? `${eventDate}T${e.horaFin}` : undefined; // No añadir 'T00:00:00' si no hay hora fin explícita
+        const end = e.horaFin ? `${eventDate}T${e.horaFin}` : undefined;
 
-        // ⛔ Evitar mostrar hora en cumpleaños o similares (usar `display: 'list-item'` o `display: 'background'`)
-        const displayMode = ["cumpleaños", "aniversario"].includes(tipoEvento) ? "block" : "auto"; // 'block' puede ser problemático, 'auto' o 'list-item' son más estándar
+        // display de FullCalendar
+        // 'list-item' es una buena opción para eventos de día completo en vistas de lista.
+        // En month view, 'auto' o 'block' si quieres que ocupen todo el día.
+        const displayMode = (esCumpleAniversario && !e.horaInicio && !e.horaFin) ? "list-item" : "auto"; // Ejemplo: si es cumple y no tiene hora, lo muestra como item de lista
 
         eventos.push({
             title,
             start,
             end,
-            color, // Color de fondo del evento
-            textColor, // Color del texto del evento
-            borderColor, // Color del borde del evento
+            backgroundColor: color, // FullCalendar usa 'backgroundColor'
+            textColor: textColor,   // FullCalendar usa 'textColor'
+            borderColor: borderColor, // FullCalendar usa 'borderColor'
             display: displayMode,
             extendedProps: {
                 tipo: e.tipo,
@@ -91,7 +108,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         headerToolbar: {
             left: "prev,next today",
             center: "title",
-            right: "dayGridMonth,timeGridWeek,timeGridDay" // Añadir más vistas si es útil
+            right: "dayGridMonth" // Mantener solo dayGridMonth o añadir vistas que sean responsivas
         },
         locale: "es",
         eventTimeFormat: {
@@ -112,8 +129,8 @@ document.addEventListener("DOMContentLoaded", async function () {
                 } else {
                     detalleFechaHora = `\n\n🕓 ${startTime}`;
                 }
-            } else {
-                detalleFechaHora = `\n\n📅 ${info.event.startStr.split('T')[0]}`; // Solo la fecha si no hay hora
+            } else if (info.event.startStr) { // Si solo hay fecha, FullCalendar puede tener startStr
+                detalleFechaHora = `\n\n📅 ${info.event.startStr.split('T')[0]}`;
             }
 
             const mostrar = `👁️ Visible para: ${extendedProps.mostrar || 'todos'}`;
@@ -121,10 +138,9 @@ document.addEventListener("DOMContentLoaded", async function () {
 
             alert(`${title}${detalleFechaHora}\n${mostrar}\n${autor}`);
         },
-        // Opcional: Permitir interacción con los eventos arrastrándolos/redimensionándolos (para el panel, no para el público)
-        // editable: true, 
-        // eventDrop: function(info) { /* Actualizar en Firestore */ },
-        // eventResize: function(info) { /* Actualizar en Firestore */ }
+        // Opcional: para el diseño móvil, considera estos ajustes en tu CSS
+        // No hay propiedades directas de FullCalendar para "dos días por línea",
+        // eso se controla con el CSS y el grid de tu HTML del calendario.
     });
 
     calendar.render();
