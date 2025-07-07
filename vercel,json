@@ -1,6 +1,0 @@
-{
-  "rewrites": [
-    { "source": "/panel", "destination": "/panel.html" },
-    { "source": "/calendario", "destination": "/index.html" }
-  ]
-}

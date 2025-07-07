@@ -1,0 +1,70 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #fdfdfd;
+  margin: 0;
+  padding: 1rem;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.filtros input,
+.filtros select {
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  min-width: 200px;
+}
+
+#eventos {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.evento-dia {
+  margin-bottom: 2rem;
+  border-left: 4px solid #ccc;
+  padding-left: 1rem;
+}
+
+.evento-dia h3 {
+  margin: 0 0 0.5rem 0;
+  color: #555;
+}
+
+.evento {
+  background-color: #f1f1f1;
+  padding: 0.6rem;
+  margin-bottom: 0.4rem;
+  border-radius: 5px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+@media (max-width: 600px) {
+  .filtros {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .filtros input,
+  .filtros select {
+    width: 90%;
+    max-width: 300px;
+  }
+
+  #eventos {
+    padding: 0 1rem;
+  }
+}

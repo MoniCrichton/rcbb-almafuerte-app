@@ -78,35 +78,36 @@ document.addEventListener("DOMContentLoaded", async function () {
       }
     });
   });
+  
+const initialView = window.innerWidth < 768 ? "dayGridMonth" : "dayGridMonth";
 
-  const initialView = window.innerWidth < 768 ? "listMonth" : "dayGridMonth";
+const calendar = new FullCalendar.Calendar(calendarEl, {
+  initialView,
+  locale: "es",
+  events: eventos,
+  dayMaxEventRows: false,
+  expandRows: true,
+  contentHeight: "auto",
+  eventClick: function (info) {
+    const { title, start, end, extendedProps } = info.event;
 
-  const calendar = new FullCalendar.Calendar(calendarEl, {
-    initialView,
-    dayMaxEventRows: true,
-    locale: "es",
-    events: eventos,
-    eventClick: function (info) {
-      const { title, start, end, extendedProps } = info.event;
-      let detalleFechaHora = '';
-      if (start) {
-        const startTime = start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
-        if (end) {
-          const endTime = end.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
-          detalleFechaHora = `\n\n🕓 ${startTime} a ${endTime}`;
-        } else {
-          detalleFechaHora = `\n\n🕓 ${startTime}`;
-        }
-      } else if (info.event.startStr) {
-        detalleFechaHora = `\n\n📅 ${info.event.startStr.split('T')[0]}`;
+    let detalleFechaHora = '';
+    if (start) {
+      const startTime = start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+      if (end) {
+        const endTime = end.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+        detalleFechaHora = `\n\n🕓 ${startTime} a ${endTime}`;
+      } else {
+        detalleFechaHora = `\n\n🕓 ${startTime}`;
       }
-
-      const mostrar = `👁️ Visible para: ${extendedProps.mostrar || 'todos'}`;
-      const autor = extendedProps.enviadoPor ? `📤 Enviado por: ${extendedProps.enviadoPor}` : '';
-
-      alert(`${title}${detalleFechaHora}\n${mostrar}\n${autor}`);
     }
-  });
+
+    const mostrar = `👁️ Visible para: ${extendedProps.mostrar || 'todos'}`;
+    const autor = extendedProps.enviadoPor ? `📤 Enviado por: ${extendedProps.enviadoPor}` : '';
+
+    alert(`${title}${detalleFechaHora}\n${mostrar}\n${autor}`);
+  },
+});
 
   calendar.render();
 });

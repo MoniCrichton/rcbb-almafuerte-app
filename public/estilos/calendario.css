@@ -19,7 +19,7 @@ h1 {
   padding: 1rem 1rem;
 }
 
-/* Estilo para eventos */
+/* Estilo base para eventos */
 .fc-event {
   border: none;
   border-radius: 6px;
@@ -31,11 +31,7 @@ h1 {
   min-height: 24px;
 }
 
-/* Permitir que eventos largos se vean completos */
-.fc-daygrid-event-harness {
-  display: block;
-}
-
+/* Título con saltos de línea permitidos */
 .fc-event-title {
   white-space: normal;
   word-break: break-word;
@@ -44,6 +40,40 @@ h1 {
 /* Ocultar hora para eventos tipo punto como cumpleaños */
 .fc-daygrid-dot-event .fc-event-time {
   display: none;
+}
+
+/* Permitir altura completa de la celda en todos los dispositivos */
+.fc-daygrid-day-frame {
+  max-height: none;
+  overflow: visible;
+}
+
+.fc-daygrid-day {
+  height: auto;
+  max-height: none;
+  vertical-align: top;
+}
+
+/* Asegurar que el calendario pueda crecer según contenido */
+.fc .fc-daygrid-body-natural {
+  height: auto !important;
+}
+
+.fc .fc-daygrid-body {
+  max-height: 100%;
+}
+
+.fc .fc-scrollgrid-sync-table {
+  table-layout: fixed;
+  height: auto;
+}
+
+.fc .fc-view-harness,
+.fc .fc-daygrid-body,
+.fc .fc-scrollgrid-section-body {
+  max-height: none;
+  height: auto;
+  overflow: visible;
 }
 
 /* Responsive visual para móviles */
@@ -82,50 +112,6 @@ h1 {
   .fc-daygrid-event {
     margin-bottom: 3px;
   }
-}
-
-/* Forzar altura uniforme de filas del calendario */
-.fc .fc-daygrid-body-natural {
-  height: auto !important;
-}
-
-.fc .fc-daygrid-body {
-  max-height: 100%;
-}
-
-.fc .fc-scrollgrid-sync-table {
-  table-layout: fixed;
-  height: calc(100vh - 150px); /* Ajusta según header/padding */
-}
-
-/* Limitar altura de la vista de mes */
-.fc-daygrid-day-frame {
-  max-height: 80px;  /* Controla la altura máxima de cada celda */
-  overflow: hidden;
-}
-
-/* Ocultar parte de eventos si se desbordan, y permitir “+ más” */
-.fc-daygrid-event {
-  overflow: hidden;
-  overflow-y: auto;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-/* Evitar que las celdas se estiren y que el calendario use altura excesiva */
-.fc-daygrid-day {
-  height: 90px; /* Control real de la celda (no solo su contenido) */
-  max-height: 90px;
-  vertical-align: top;
-}
-
-/* Limitar la altura total del calendario mensual */
-.fc .fc-view-harness,
-.fc .fc-daygrid-body,
-.fc .fc-scrollgrid-section-body {
-  max-height: 75vh;
-  height: 75vh;
-  overflow: hidden;
 }
 
 /* Colores personalizados por tipo */
