@@ -127,3 +127,125 @@ h1 {
   height: 75vh;
   overflow: hidden;
 }
+
+/* Colores personalizados por tipo */
+
+.evento-cumpleaños {
+  background-color: #00FA9A !important;
+  color: #000 !important;
+  border: 1px solid #00FA9A !important;
+}
+
+.evento-aniversario {
+  background-color: #00FA9A !important;
+  color: #000 !important;
+  border: 1px solid #00FA9A !important;
+}
+
+.evento-feriado {
+  background-color: #87CEEB !important;
+  color: #000 !important;
+  border: 1px solid #87CEEB !important;
+}
+
+.evento-efeméride {
+  background-color: #E6E6FA !important;
+  color: #000 !important;
+  border: 1px solid #E6E6FA !important;
+}
+
+.evento-reunión {
+  background-color: #C2EABD !important;
+  color: #000 !important;
+  border: 1px solid #C2EABD !important;
+}
+
+.evento-cena {
+  background-color: #FAD0E6 !important;
+  color: #000 !important;
+  border: 1px solid #FAD0E6 !important;
+}
+
+.evento-actividad-membresia {
+  background-color: #FFA500 !important;
+  color: #000 !important;
+  border: 1px solid #FFA500 !important;
+}
+
+.evento-evento {
+  background-color: #CCCCCC !important;
+  color: #000 !important;
+  border: 1px solid #CCCCCC !important;
+}
+
+.evento-conferencia {
+  background-color: #D2D0F0 !important;
+  color: #000 !important;
+  border: 1px solid #D2D0F0 !important;
+}
+
+.evento-deportes-y-valores {
+  background-color: #A2DED0 !important;
+  color: #000 !important;
+  border: 1px solid #A2DED0 !important;
+}
+
+.evento-ryla {
+  background-color: #A6BDFE !important;
+  color: #000 !important;
+  border: 1px solid #A6BDFE !important;
+}
+
+.evento-capacitaciones {
+  background-color: #40E0D0 !important;
+  color: #000 !important;
+  border: 1px solid #40E0D0 !important;
+}
+
+.evento-interact {
+  background-color: #00CED1 !important;
+  color: #000 !important;
+  border: 1px solid #00CED1 !important;
+}
+
+.evento-rotaract {
+  background-color: #FF8C00 !important;
+  color: #000 !important;
+  border: 1px solid #FF8C00 !important;
+}
+
+.evento-instituto {
+  background-color: #6A9ACD !important;
+  color: #000 !important;
+  border: 1px solid #6A9ACD !important;
+}
+
+.evento-rotary-internacional {
+  background-color: #F7A81B !important;
+  color: #000 !important;
+  border: 1px solid #F7A81B !important;
+}
+
+.evento-servicio {
+  background-color: #FFE4B2 !important;
+  color: #000 !important;
+  border: 1px solid #FFE4B2 !important;
+}
+
+.evento-intercambio {
+  background-color: #D4E3FC !important;
+  color: #000 !important;
+  border: 1px solid #D4E3FC !important;
+}
+
+.evento-empoderamiento-de-nna {
+  background-color: #FAFAFA !important;
+  color: #000 !important;
+  border: 1px solid #FAFAFA !important;
+}
+
+.evento-distrito {
+  background-color: #B0C4DE !important;
+  color: #000 !important;
+  border: 1px solid #B0C4DE !important;
+}

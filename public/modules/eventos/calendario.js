@@ -1,7 +1,4 @@
-// public/eventos/calendario.js
-import { db } from '../shared/firebase.js'; // Importa 'db' desde tu archivo de configuración de Firebase
-
-// 🔁 IMPORTS necesarios para Firebase v9+
+import { db } from '../shared/firebase.js';
 import {
   collection,
   query,
@@ -14,7 +11,6 @@ document.addEventListener("DOMContentLoaded", async function () {
   const eventos = [];
   let eventTypeStyles = {};
 
-  // 🟡 Cargar estilos desde JSON local
   try {
     const response = await fetch("../data/event_type_styles.json");
     const jsonStyles = await response.json();
@@ -33,8 +29,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         borderColor: "#CCCCCC"
       };
     }
-
-    console.log("Estilos de eventos cargados desde JSON:", eventTypeStyles);
   } catch (error) {
     console.error("Error al cargar estilos desde JSON:", error);
     eventTypeStyles = {
@@ -42,9 +36,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     };
   }
 
-  // 🔥 Cargar eventos desde Firebase
   const q = query(collection(db, "eventos"), orderBy("fecha", "asc"));
   const querySnapshot = await getDocs(q);
+  const tiposDetectados = new Set();
 
   function calcularEdad(nacimiento, eventoFecha) {
     if (!nacimiento) return "";
@@ -60,16 +54,11 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   querySnapshot.forEach((doc) => {
     const e = doc.data();
-    console.log("Evento de Firestore:", e);
-
-    const tipoEvento = (e.tipo || 'general').toLowerCase();
+    const tipoEvento = (e.tipo || 'general').trim().toLowerCase();
     const style = eventTypeStyles[tipoEvento] || eventTypeStyles['general'] || {};
+    tiposDetectados.add(tipoEvento);
 
     const emoji = style.emoji || "";
-    const color = style.color || "#CCCCCC";
-    const textColor = style.textColor || '#000000';
-    const borderColor = style.borderColor || '#CCCCCC';
-
     const esCumpleAniversario = ["cumpleaños", "aniversario"].includes(tipoEvento);
     const edad = (esCumpleAniversario && e.fechaNacimiento) ? calcularEdad(e.fechaNacimiento, e.fecha) : "";
     const title = `${emoji} ${e.titulo}${edad ? ` (${edad})` : ""}`;
@@ -82,16 +71,14 @@ document.addEventListener("DOMContentLoaded", async function () {
     const start = e.horaInicio ? `${eventDate}T${e.horaInicio}` : `${eventDate}T00:00:00`;
     const end = e.horaFin ? `${eventDate}T${e.horaFin}` : undefined;
 
-    const displayMode = (esCumpleAniversario && !e.horaInicio && !e.horaFin) ? "list-item" : "auto";
+    // 👉 Generar clase CSS para ese tipo
+    const tipoClase = "evento-" + tipoEvento.replace(/\s+/g, '-');
 
     eventos.push({
       title,
       start,
       end,
-      backgroundColor: color,
-      textColor: textColor,
-      borderColor: borderColor,
-      display: displayMode,
+      classNames: [tipoClase],
       extendedProps: {
         tipo: e.tipo,
         mostrar: e.mostrar,
@@ -100,24 +87,13 @@ document.addEventListener("DOMContentLoaded", async function () {
     });
   });
 
-  // 🗓️ Renderizar el calendario
   const calendar = new FullCalendar.Calendar(calendarEl, {
     initialView: "dayGridMonth",
-    headerToolbar: {
-      left: "prev,next today",
-      center: "title",
-      right: "dayGridMonth"
-    },
+    dayMaxEventRows: true,
     locale: "es",
-    eventTimeFormat: {
-      hour: '2-digit',
-      minute: '2-digit',
-      hour12: false
-    },
     events: eventos,
     eventClick: function (info) {
       const { title, start, end, extendedProps } = info.event;
-
       let detalleFechaHora = '';
       if (start) {
         const startTime = start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
