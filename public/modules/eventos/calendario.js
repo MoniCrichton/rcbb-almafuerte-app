@@ -11,16 +11,20 @@ document.addEventListener("DOMContentLoaded", async function () {
   const eventos = [];
   let eventTypeStyles = {};
 
+  // 🔍 Detectar si estamos en modo "junta"
+  const params = new URLSearchParams(window.location.search);
+  const esModoJunta = params.get("modo") === "junta";
+  console.log("👁️ Modo junta activado:", esModoJunta);
+
+  // 🟡 Cargar estilos desde JSON local
   try {
     const response = await fetch("../data/event_type_styles.json");
     const jsonStyles = await response.json();
-
     jsonStyles.forEach(style => {
       if (style.tipo) {
         eventTypeStyles[style.tipo.toLowerCase()] = style;
       }
     });
-
     if (!eventTypeStyles['general']) {
       eventTypeStyles['general'] = {
         emoji: "🗓️",
@@ -38,30 +42,19 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   const q = query(collection(db, "eventos"), orderBy("fecha", "asc"));
   const querySnapshot = await getDocs(q);
-  const tiposDetectados = new Set();
-
-  function calcularEdad(nacimiento, eventoFecha) {
-    if (!nacimiento) return "";
-    const d1 = new Date(nacimiento);
-    const d2 = new Date(eventoFecha);
-    let edad = d2.getFullYear() - d1.getFullYear();
-    const m = d2.getMonth() - d1.getMonth();
-    if (m < 0 || (m === 0 && d2.getDate() < d1.getDate())) {
-      edad--;
-    }
-    return edad > 0 ? edad : "";
-  }
 
   querySnapshot.forEach((doc) => {
     const e = doc.data();
     const tipoEvento = (e.tipo || 'general').trim().toLowerCase();
     const style = eventTypeStyles[tipoEvento] || eventTypeStyles['general'] || {};
-    tiposDetectados.add(tipoEvento);
+
+    // 🔐 Filtro por visibilidad
+    if (!esModoJunta && e.mostrar === "junta") return;
 
     const emoji = style.emoji || "";
-    const esCumpleAniversario = ["cumpleaños", "aniversario"].includes(tipoEvento);
-    const edad = (esCumpleAniversario && e.fechaNacimiento) ? calcularEdad(e.fechaNacimiento, e.fecha) : "";
-    const title = `${emoji} ${e.titulo}${edad ? ` (${edad})` : ""}`;
+    const color = style.color || "#CCCCCC";
+    const textColor = style.textColor || '#000000';
+    const borderColor = style.borderColor || '#CCCCCC';
 
     const eventDate =
       typeof e.fecha.toDate === 'function'
@@ -71,11 +64,10 @@ document.addEventListener("DOMContentLoaded", async function () {
     const start = e.horaInicio ? `${eventDate}T${e.horaInicio}` : `${eventDate}T00:00:00`;
     const end = e.horaFin ? `${eventDate}T${e.horaFin}` : undefined;
 
-    // 👉 Generar clase CSS para ese tipo
     const tipoClase = "evento-" + tipoEvento.replace(/\s+/g, '-');
 
     eventos.push({
-      title,
+      title: `${emoji} ${e.titulo}`,
       start,
       end,
       classNames: [tipoClase],
@@ -87,8 +79,10 @@ document.addEventListener("DOMContentLoaded", async function () {
     });
   });
 
+  const initialView = window.innerWidth < 768 ? "listMonth" : "dayGridMonth";
+
   const calendar = new FullCalendar.Calendar(calendarEl, {
-    initialView: "dayGridMonth",
+    initialView,
     dayMaxEventRows: true,
     locale: "es",
     events: eventos,
