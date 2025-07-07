@@ -76,7 +76,11 @@ document.addEventListener("DOMContentLoaded", async function () {
         // ⏱️ Preparar fechas para FullCalendar
         // Si 'fecha' es un string 'YYYY-MM-DD', FullCalendar lo maneja bien.
         // Si tienes timestamps de Firebase, necesitarás .toDate()
-        const eventDate = e.fecha instanceof firebase.firestore.Timestamp ? e.fecha.toDate().toISOString().split('T')[0] : e.fecha; // Asegurar YYYY-MM-DD
+        const eventDate =
+            typeof e.fecha.toDate === 'function'
+                ? e.fecha.toDate().toISOString().split('T')[0]
+                : e.fecha;
+
         
         const start = e.horaInicio ? `${eventDate}T${e.horaInicio}` : `${eventDate}T00:00:00`;
         const end = e.horaFin ? `${eventDate}T${e.horaFin}` : undefined;
