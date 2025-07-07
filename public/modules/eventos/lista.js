@@ -1,4 +1,4 @@
-import { db } from "../modules/shared/firebase.js";
+import { db } from "../shared/firebase.js";
 
 const contenedor = document.getElementById("eventos");
 const filtroInput = document.getElementById("filtro-texto");
@@ -65,8 +65,8 @@ function filtrarEventos() {
     const coincideTipo = tipo === "" || e.tipo === tipo;
 
     let coincideVisibilidad = true;
-    if (visibilidad === "todos") coincideVisibilidad = e.mostrar === "todos";
-    else if (visibilidad === "socios") coincideVisibilidad = ["todos", "socios"].includes(e.mostrar);
+    if (visibilidad === "general") coincideVisibilidad = e.mostrar === "general";
+    else if (visibilidad === "socios") coincideVisibilidad = ["socios", "general"].includes(e.mostrar);
     else if (visibilidad === "junta") coincideVisibilidad = true; // muestra todo
 
     return coincideTexto && coincideTipo && coincideVisibilidad;
@@ -86,9 +86,8 @@ async function cargarEventos() {
   eventosOriginales = querySnapshot.docs.map((doc) => doc.data());
 
   const tiposUnicos = [...new Set(eventosOriginales.map(e => e.tipo).filter(Boolean))].sort();
-  filtroTipo.innerHTML = '<option value="">Todos</option>' + tiposUnicos.map(t => `<option value="${t}">${t}</option>`).join("");
+  filtroTipo.innerHTML = '<option value="">Todos los tipos</option>' + tiposUnicos.map(t => `<option value="${t}">${t}</option>`).join("");
 
-  // aplicar filtro desde URL (ej: ?ver=socios)
   const visibilidadURL = obtenerParametroUrl("ver");
   if (visibilidadURL) {
     filtroVisibilidad.value = visibilidadURL;

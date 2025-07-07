@@ -1,130 +1,35 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Lista de eventos</title>
-  <link rel="stylesheet" href="./estilos/lista.css">
+  <link rel="stylesheet" href="./estilos/lista.css" />
 </head>
 <body>
   <h1>📋 Lista de eventos</h1>
 
   <!-- Filtros básicos -->
-  <section id="filtros">
-    <label>
-      Tipo:
-      <select id="filtro-tipo">
-        <option value="">Todos</option>
-        <!-- Opciones se generan dinámicamente -->
-      </select>
-    </label>
-    <label>
-      Mostrar:
-      <select id="filtro-visibilidad">
-        <option value="">Todos</option>
-        <option value="general">Solo general</option>
-        <option value="socios">Solo socios</option>
-        <option value="junta">Solo junta</option>
-      </select>
-    </label>
+  <section class="filtros">
+    <input type="text" id="filtro-texto" placeholder="Buscar por título..." />
+    
+    <select id="filtro-tipo">
+      <option value="">Todos los tipos</option>
+      <!-- Se llena dinámicamente -->
+    </select>
+
+    <select id="filtro-visibilidad">
+      <option value="">Todas las visibilidades</option>
+      <option value="general">Solo general</option>
+      <option value="socios">Solo socios</option>
+      <option value="junta">Solo junta</option>
+    </select>
+
     <button id="btn-limpiar">Limpiar filtros</button>
   </section>
 
   <main id="eventos"></main>
 
-  <script type="module">
-    import { db } from "../modules/shared/firebase.js";
-
-    const contenedor = document.getElementById("eventos");
-    const filtroTipo = document.getElementById("filtro-tipo");
-    const filtroVisibilidad = document.getElementById("filtro-visibilidad");
-    const btnLimpiar = document.getElementById("btn-limpiar");
-
-    let eventosOriginales = [];
-
-    function calcularEdad(nacimiento, eventoFecha) {
-      if (!nacimiento) return "";
-      const d1 = new Date(nacimiento);
-      const d2 = new Date(eventoFecha);
-      let edad = d2.getFullYear() - d1.getFullYear();
-      const m = d2.getMonth() - d1.getMonth();
-      if (m < 0 || (m === 0 && d2.getDate() < d1.getDate())) edad--;
-      return edad > 0 ? ` (${edad})` : "";
-    }
-
-    function renderizarLista(eventos) {
-      if (eventos.length === 0) {
-        contenedor.innerHTML = "<p>No hay eventos para mostrar.</p>";
-        return;
-      }
-      const secciones = {};
-      eventos.forEach((e) => {
-        const fecha = new Date(
-          typeof e.fecha.toDate === "function" ? e.fecha.toDate() : e.fecha
-        );
-        const fechaStr = fecha.toLocaleDateString("es-AR", {
-          weekday: "long",
-          day: "2-digit",
-          month: "long",
-          year: "numeric",
-        });
-
-        if (!secciones[fechaStr]) secciones[fechaStr] = [];
-
-        const hora = e.horaInicio ? `🕓 ${e.horaInicio}` : "";
-        const emoji = e.emoji || "";
-        const edad = ["cumpleaños", "aniversario"].includes(e.tipo?.toLowerCase())
-          ? calcularEdad(e.fechaNacimiento, fecha)
-          : "";
-
-        secciones[fechaStr].push(
-          `<div class="evento"><strong>${emoji} ${e.titulo}${edad}</strong><br>${hora}</div>`
-        );
-      });
-
-      contenedor.innerHTML = Object.entries(secciones)
-        .sort(([a], [b]) => new Date(a) - new Date(b))
-        .map(
-          ([fecha, eventos]) =>
-            `<div class="evento-dia">
-              <h3>📅 ${fecha.charAt(0).toUpperCase() + fecha.slice(1)}</h3>
-              ${eventos.join("\n")}
-            </div>`
-        )
-        .join("\n");
-    }
-
-    function filtrarEventos() {
-      const tipo = filtroTipo.value;
-      const visibilidad = filtroVisibilidad.value;
-
-      const filtrados = eventosOriginales.filter((e) => {
-        const coincideTipo = tipo === "" || e.tipo === tipo;
-        const coincideVisibilidad = visibilidad === "" || e.mostrar === visibilidad;
-        return coincideTipo && coincideVisibilidad;
-      });
-      renderizarLista(filtrados);
-    }
-
-    async function cargarEventos() {
-      const q = db.collection("eventos").orderBy("fecha", "asc");
-      const querySnapshot = await q.get();
-      eventosOriginales = querySnapshot.docs.map((doc) => doc.data());
-
-      const tiposUnicos = [...new Set(eventosOriginales.map(e => e.tipo).filter(Boolean))].sort();
-      filtroTipo.innerHTML = '<option value="">Todos</option>' + tiposUnicos.map(t => `<option value="${t}">${t}</option>`).join("");
-
-      filtrarEventos();
-    }
-
-    document.addEventListener("DOMContentLoaded", cargarEventos);
-    filtroTipo.addEventListener("change", filtrarEventos);
-    filtroVisibilidad.addEventListener("change", filtrarEventos);
-    btnLimpiar.addEventListener("click", () => {
-      filtroTipo.value = "";
-      filtroVisibilidad.value = "";
-      filtrarEventos();
-    });
-  </script>
+  <script type="module" src="./modules/eventos/lista.js"></script>
 </body>
 </html>
