@@ -7,6 +7,11 @@
 
   <!-- Estilos del panel -->
   <link rel="stylesheet" href="./estilos/panel.css" />
+
+  <!-- FullCalendar desde archivos locales -->
+  <link href="/vendor/fullcalendar/main.min.css" rel="stylesheet" />
+  <script src="/vendor/fullcalendar/core.min.js"></script>
+  <script src="/vendor/fullcalendar/daygrid.min.js"></script>
 </head>
 <body>
   <h1>🔐 Acceso al panel</h1>
@@ -19,26 +24,27 @@
   </div>
 
   <div id="panel" style="display:none;">
-  <h2>Bienvenida, Moni 👋</h2>
-  <form id="form-evento">
-    <label>Fecha: <input type="date" name="fecha" required></label><br>
-    <label>Título: <input type="text" name="titulo" required></label><br>
-    <label>Tipo: <input type="text" name="tipo" required></label><br>
-    <label>Hora inicio: <input type="time" name="horaInicio"></label><br>
-    <label>Hora fin: <input type="time" name="horaFin"></label><br>
-    <label>Fecha nacimiento (solo si aplica): <input type="date" name="fechaNacimiento"></label><br>
-    <label>Mostrar a: 
-      <select name="mostrar">
-        <option value="todos">Todos</option>
-        <option value="socios">Solo socios</option>
-      </select>
-    </label><br>
-    <label>Enviado por: <input type="text" name="enviadoPor" value="Moni" /></label><br>
-    <button type="submit">Cargar evento</button>
-  </form>
-  <p id="estado-evento"></p>
-</div>
+    <h2>Bienvenida, Moni 👋</h2>
+    <form id="form-evento">
+      <label>Fecha: <input type="date" name="fecha" required></label><br>
+      <label>Título: <input type="text" name="titulo" required></label><br>
+      <label>Tipo: <input type="text" name="tipo" required></label><br>
+      <label>Hora inicio: <input type="time" name="horaInicio"></label><br>
+      <label>Hora fin: <input type="time" name="horaFin"></label><br>
+      <label>Fecha nacimiento (solo si aplica): <input type="date" name="fechaNacimiento"></label><br>
+      <label>Mostrar a: 
+        <select name="mostrar">
+          <option value="todos">Todos</option>
+          <option value="socios">Solo socios</option>
+        </select>
+      </label><br>
+      <label>Enviado por: <input type="text" name="enviadoPor" value="Moni" /></label><br>
+      <button type="submit">Cargar evento</button>
+    </form>
+    <p id="estado-evento"></p>
+  </div>
 
+  <!-- 🔐 Script de acceso y carga condicional -->
   <script>
     document.getElementById("btnIngresar").addEventListener("click", function () {
       const usuario = document.getElementById("usuario").value.trim();
@@ -47,31 +53,35 @@
       if (usuario === "moni" && clave === "rotary2025") {
         document.getElementById("login-container").style.display = "none";
         document.getElementById("panel").style.display = "block";
+
+        // ✅ Cargar Firebase y script del panel dinámicamente
+        const scriptFirebaseApp = document.createElement("script");
+        scriptFirebaseApp.src = "https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js";
+
+        const scriptFirebaseDB = document.createElement("script");
+        scriptFirebaseDB.src = "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js";
+
+        const scriptConfig = document.createElement("script");
+        scriptConfig.type = "module";
+        scriptConfig.src = "./modules/shared/config.js";
+
+        const scriptPanel = document.createElement("script");
+        scriptPanel.type = "module";
+        scriptPanel.src = "./js/panel-script.js";
+
+        document.body.appendChild(scriptFirebaseApp);
+        document.body.appendChild(scriptFirebaseDB);
+
+        // Aseguramos que los scripts modulares se carguen después de Firebase
+        scriptFirebaseDB.onload = () => {
+          document.body.appendChild(scriptConfig);
+          document.body.appendChild(scriptPanel);
+        };
+
       } else {
         document.getElementById("mensajeError").innerText = "Usuario o clave incorrectos";
       }
     });
   </script>
-  // Después de mostrar el panel...
-// Cargar Firebase y script del panel dinámicamente
-const scriptFirebaseApp = document.createElement("script");
-scriptFirebaseApp.src = "https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js";
-
-const scriptFirebaseDB = document.createElement("script");
-scriptFirebaseDB.src = "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js";
-
-const scriptConfig = document.createElement("script");
-scriptConfig.type = "module";
-scriptConfig.src = "./modules/shared/config.js";
-
-const scriptPanel = document.createElement("script");
-scriptPanel.type = "module";
-scriptPanel.src = "./js/panel-script.js";
-
-document.body.appendChild(scriptFirebaseApp);
-document.body.appendChild(scriptFirebaseDB);
-document.body.appendChild(scriptConfig);
-document.body.appendChild(scriptPanel);
-
 </body>
 </html>
