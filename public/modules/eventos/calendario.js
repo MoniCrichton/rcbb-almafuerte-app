@@ -1,5 +1,5 @@
 // public/eventos/calendario.js
-import { db } from '../shared/config.js'; // Importa 'db' desde tu archivo de configuración de Firebase
+import { db } from '../shared/firebase.js'; // Importa 'db' desde tu archivo de configuración de Firebase
 
 document.addEventListener("DOMContentLoaded", async function () {
     const calendarEl = document.getElementById("calendario");
