@@ -45,43 +45,31 @@
   </div>
 
   <!-- 🔐 Script de acceso y carga condicional -->
-  <script>
-    document.getElementById("btnIngresar").addEventListener("click", function () {
-      const usuario = document.getElementById("usuario").value.trim();
-      const clave = document.getElementById("clave").value.trim();
+  <script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+  import { getFirestore, collection, getDocs, addDoc, updateDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-      if (usuario === "moni" && clave === "rotary2025") {
-        document.getElementById("login-container").style.display = "none";
-        document.getElementById("panel").style.display = "block";
+  const firebaseConfig = {
+    
+  apiKey: "AIzaSyDGbWOmA28Lb0aoe0HIXeOYZ6lHH4rTNLk",
 
-        // ✅ Cargar Firebase y script del panel dinámicamente
-        const scriptFirebaseApp = document.createElement("script");
-        scriptFirebaseApp.src = "https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js";
+  authDomain: "calendario-rcbba.firebaseapp.com",
 
-        const scriptFirebaseDB = document.createElement("script");
-        scriptFirebaseDB.src = "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js";
+  projectId: "calendario-rcbba",
 
-        const scriptConfig = document.createElement("script");
-        scriptConfig.type = "module";
-        scriptConfig.src = "./modules/shared/config.js";
+  storageBucket: "calendario-rcbba.firebasestorage.app",
 
-        const scriptPanel = document.createElement("script");
-        scriptPanel.type = "module";
-        scriptPanel.src = "/panel-script.js";
+  messagingSenderId: "874861663623",
 
-        document.body.appendChild(scriptFirebaseApp);
-        document.body.appendChild(scriptFirebaseDB);
+  appId: "1:874861663623:web:2c24b216123a876b4d2f22"
+  };
 
-        // Aseguramos que los scripts modulares se carguen después de Firebase
-        scriptFirebaseDB.onload = () => {
-          document.body.appendChild(scriptConfig);
-          document.body.appendChild(scriptPanel);
-        };
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
 
-      } else {
-        document.getElementById("mensajeError").innerText = "Usuario o clave incorrectos";
-      }
-    });
-  </script>
+  window.db = db; // ✅ para que esté accesible desde F12
+  console.log("🔥 Firebase cargado correctamente");
+</script>
+
 </body>
 </html>
